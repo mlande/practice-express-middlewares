@@ -3,9 +3,14 @@ const router = express.Router();
 const catService = require("../cat-service")
 //solution 
 /* GET home page */
-router.get('/', (req, res, next) => {
-  res.locals.facts = ["Cat fact will be injected here"]
+
+function renderPage(req, res, next) {
   res.render('index');
-});
+}
+
+router.get(
+  '/',
+  renderPage
+);
 
 module.exports = router;

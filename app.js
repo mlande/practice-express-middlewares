@@ -8,6 +8,7 @@ const hbs = require('hbs');
 const mongoose = require('mongoose');
 const logger = require('morgan');
 const path = require('path');
+const middlewares = require("./middlewares")
 
 
 mongoose.Promise = Promise;
@@ -43,16 +44,14 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
-
-
+app.use(middlewares.initFacts)
 
 // default value for title local
 app.locals.title = 'Catometer';
 
 
-
 const index = require('./routes/index');
-app.use('/', index);
+app.use('/', middlewares.injectCatFact(5), index);
 
 
 module.exports = app;
