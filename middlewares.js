@@ -1,6 +1,5 @@
 const catService = require("./cat-service")
 
-
 function initFacts(req, res, next) {
     res.locals.facts = []
     next()
@@ -20,6 +19,12 @@ function injectCatFact(numberOfFacts) {
     }
 }
 
+function renderPage(viewName) {
+    return (req, res, next) => {
+        res.render(viewName);
+    }
+}
 
-module.exports = { injectCatFact, initFacts }
+
+module.exports = { injectCatFact, initFacts, renderPage }
 
